@@ -1,0 +1,77 @@
+#include<stdio.h>
+ 
+int search(int key,int a[],int len)
+{
+	int ret=-1;
+	int left = 0;
+	int right =len - 1;
+	while(left<right)
+		{	
+			int mid = (left+right)/2;
+			if(a[mid]==key)
+				{	
+					ret=mid + 1;
+					break;
+				}
+			else if(a[mid]>key)
+				right = mid - 1;
+			else
+				left = mid +1;
+		}
+	return ret;
+}
+ 
+ 
+int max(int a[],int len)
+	{
+		int maxid = 0;
+		for(int i=1;i<len;i++)
+			{
+				if(a[i]>a[maxid])
+					maxid = i;
+			}
+		return maxid;
+	}
+ 
+int main()
+{	
+	int n;
+	printf("please input the amount of numbers you want(up to 100):\n");
+	scanf("%d",&n);
+	
+	int m,a[100];
+	
+	printf("please input the unsorted numbers:\n");
+	for(m=0;m<n;m++)
+		scanf("%d",&a[m]);
+		
+	for(int i = n-1;i>0;i--)//选择排序 
+		{
+			int maxid = max(a,i+1);
+			int t = a[maxid];
+			a[maxid] = a[i];
+			a[i] = t;
+		} 
+	printf("the follow is the sorted numbers:\n");
+	for(int i = 0;i<n;i++)
+		{
+			printf("%d ",a[i]);
+		}
+	printf("\n");
+		
+	
+	
+	int k;
+	printf("please input the number you want:\n");
+	scanf("%d",&k); 
+	
+	int r=search(k,a,n);//二分查找 
+	if(r==-1)
+		printf("the statics is not here");
+	else
+		printf("%d is in the array and in the %d place of the sorted numbers",k,r);
+		
+	return 0;
+	
+	
+} 
